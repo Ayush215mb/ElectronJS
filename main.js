@@ -22,7 +22,31 @@ app.on("ready", () => {
           label: "Open Terminal",
           click() {
             // Open the terminal
-            exec("start cmd.exe"); // Change this command based on the OS
+            // exec("start cmd.exe"); // Change this command based on the OS
+            if (process.platform === "win32") {
+              exec("start cmd.exe");
+            } else if (process.platform === "darwin") {
+              exec("open -a Terminal");
+            } else if (process.platform === "linux") {
+              exec("gnome-terminal");
+            }
+          },
+        },
+      ],
+    },
+    {
+      label: "ayush",
+      submenu: [
+        {
+          label: "name",
+          click() {
+            console.log("clicked Name");
+          },
+        },
+        {
+          label: "city",
+          click() {
+            console.log("KOlkata");
           },
         },
       ],
