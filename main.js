@@ -3,6 +3,7 @@
 const { app, BrowserWindow, Menu } = require("electron");
 const { exec } = require("child_process");
 const path = require("node:path");
+
 let mainWindow;
 
 app.on("ready", () => {
@@ -22,13 +23,12 @@ app.on("ready", () => {
           label: "Open Terminal",
           click() {
             // Open the terminal
-            // exec("start cmd.exe"); // Change this command based on the OS
             if (process.platform === "win32") {
-              exec("start cmd.exe");
+              exec('start cmd.exe /K "node -v"'); // Run node -v in Command Prompt
             } else if (process.platform === "darwin") {
-              exec("open -a Terminal");
+              exec('open -a Terminal "`node -v`"'); // Run node -v in macOS Terminal
             } else if (process.platform === "linux") {
-              exec("gnome-terminal");
+              exec('gnome-terminal -- bash -c "node -v; exec bash"'); // Run node -v in Linux terminal
             }
           },
         },
@@ -57,4 +57,5 @@ app.on("ready", () => {
   Menu.setApplicationMenu(menu);
 
   mainWindow.loadFile("index.html");
+  exec('start cmd.exe /K "node -v && npm -v"');
 });
